@@ -19,7 +19,7 @@ fp_bzr = "lor_bzr.shp"
 fp_bzr = "lor_bzr.shp"
 fp_pgr = "lor_pgr.shp"
 fp_plr = "lor_plr.shp"
-straßennetz = "Detailnetz-Strassenabschnitte.shp"
+
 fp_pgr = "lor_pgr.shp"
 
 # Laden der Gewerbedaten
@@ -32,8 +32,7 @@ data_bzr = geopandas.read_file(fp_bzr)
 data_pgr = geopandas.read_file(fp_pgr)
 # Laden der Planungsräume
 data_plr = geopandas.read_file(fp_plr)
-# Laden des Straßennetzes
-data_straßennetz = geopandas.read_file(straßennetz)
+
 # Laden der Fallzahlen
 dfKrimi = pd.read_csv(
     "Fallzahlen&HZ 2013-2022.csv",
