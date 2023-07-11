@@ -19,7 +19,7 @@ fp_bzr = "lor_bzr.shp"
 fp_bzr = "lor_bzr.shp"
 fp_pgr = "lor_pgr.shp"
 fp_plr = "lor_plr.shp"
-
+straßennetz = "Detailnetz-Strassenabschnitte.shp"
 fp_pgr = "lor_pgr.shp"
 
 # Laden der Gewerbedaten
@@ -32,7 +32,8 @@ data_bzr = geopandas.read_file(fp_bzr)
 data_pgr = geopandas.read_file(fp_pgr)
 # Laden der Planungsräume
 data_plr = geopandas.read_file(fp_plr)
-
+# Laden des Straßennetzes
+data_straßennetz = geopandas.read_file(straßennetz)
 # Laden der Fallzahlen
 dfKrimi = pd.read_csv(
     "Fallzahlen&HZ 2013-2022.csv",
@@ -460,15 +461,27 @@ def update_figure(event=None):
         linewidth=0.3,
         edgecolor=edgecolor,
         ax=ax,
-    )
+    )   
     filteredGewerbe.plot(
-        markersize=(slider2_marker + 1) / 3,
+        markersize=(slider2_marker + 1) / 4,
         color=color1,
         ax=ax,
         label=legends["filteredGewerbe"],
         alpha=alphaGewerbe,
     )
-
+    filteredKitas.plot(
+        markersize=(slider1_marker + 1) / 4,
+        color=color2,
+        ax=ax,
+        marker="s",
+        label=legends["gdfKitas"],
+    )
+    train_stations_gdf.plot(
+        markersize=(slider3_marker + 1),
+        color=color3,
+        ax=ax,
+        label=legends["train_stations_gdf"],
+    )
     # gdfKitas.plot(
     #     markersize=(slider1_marker + 1) / 5,
     #     color=color2,
@@ -476,20 +489,10 @@ def update_figure(event=None):
     #     marker="s",
     #     label=legends["gdfKitas"],
     # )
-    filteredKitas.plot(
-        markersize=(slider1_marker + 1) / 8,
-        color=color2,
-        ax=ax,
-        marker="s",
-        label=legends["gdfKitas"],
-    )
+    
 
-    train_stations_gdf.plot(
-        markersize=(slider3_marker + 1) / 2,
-        color=color3,
-        ax=ax,
-        label=legends["train_stations_gdf"],
-    )
+
+
 
     plt.tight_layout()
     # Add legend to the plot
@@ -517,28 +520,28 @@ color_dropdown.set(color_combinations[0])
 dropdown_label1 = tk.Label(dropdown_frame, text="Kitas")
 dropdown_label1.grid(row=1, column=0, sticky="w")
 dropdown1 = ttk.Combobox(dropdown_frame, values=list(range(11)))
-dropdown1.set("0")
+dropdown1.set("5")
 dropdown1.grid(row=1, column=1, sticky="w")
 dropdown1.bind("<<ComboboxSelected>>", update_figure)
 
 dropdown_label2 = tk.Label(dropdown_frame, text="Gewerbe")
 dropdown_label2.grid(row=1, column=2, sticky="w")
 dropdown2 = ttk.Combobox(dropdown_frame, values=list(range(11)))
-dropdown2.set("0")
+dropdown2.set("5")
 dropdown2.grid(row=1, column=3, sticky="w")
 dropdown2.bind("<<ComboboxSelected>>", update_figure)
 
 dropdown_label3 = tk.Label(dropdown_frame, text="Bahnhöfe")
 dropdown_label3.grid(row=2, column=0, sticky="w")
 dropdown3 = ttk.Combobox(dropdown_frame, values=list(range(11)))
-dropdown3.set("0")
+dropdown3.set("5")
 dropdown3.grid(row=2, column=1, sticky="w")
 dropdown3.bind("<<ComboboxSelected>>", update_figure)
 
 dropdown_label4 = tk.Label(dropdown_frame, text="Kriminalität")
 dropdown_label4.grid(row=1, column=4, sticky="w")
 dropdown4 = ttk.Combobox(dropdown_frame, values=list(range(11)))
-dropdown4.set("0")
+dropdown4.set("5")
 dropdown4.grid(row=1, column=5, sticky="w")
 dropdown4.bind("<<ComboboxSelected>>", update_figure)
 
